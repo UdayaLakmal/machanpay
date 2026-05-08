@@ -7,6 +7,9 @@
  "engine": "InnoDB",
  "field_order": [
   "paid_by",
+  "column_break_rxwh",
+  "split_method",
+  "section_break_yphk",
   "splits",
   "section_break_eo11",
   "date",
@@ -20,7 +23,8 @@
  "fields": [
   {
    "fieldname": "section_break_eo11",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "label": "Details"
   },
   {
    "fieldname": "amended_from",
@@ -90,13 +94,30 @@
    "print_hide": 1,
    "read_only": 1,
    "reqd": 1
+  },
+  {
+   "fieldname": "column_break_rxwh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Equally",
+   "fieldname": "split_method",
+   "fieldtype": "Select",
+   "label": "Split method",
+   "options": "Equally\nManual",
+   "reqd": 1,
+   "sort_options": 1
+  },
+  {
+   "fieldname": "section_break_yphk",
+   "fieldtype": "Section Break"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-05-08 22:37:20.832413",
+ "modified": "2026-05-08 23:10:47.975882",
  "modified_by": "Administrator",
  "module": "Machan Pay",
  "name": "Expense",

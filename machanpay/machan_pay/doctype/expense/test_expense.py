@@ -2,6 +2,7 @@
 # See license.txt
 
 # import frappe
+import frappe
 from frappe.tests import IntegrationTestCase
 
 
@@ -11,7 +12,7 @@ from frappe.tests import IntegrationTestCase
 EXTRA_TEST_RECORD_DEPENDENCIES = []  # eg. ["User"]
 IGNORE_TEST_RECORD_DEPENDENCIES = []  # eg. ["User"]
 
-
+from frappe.tests.utils import FrappeTestCase
 
 class IntegrationTestExpense(IntegrationTestCase):
 	"""
@@ -20,3 +21,30 @@ class IntegrationTestExpense(IntegrationTestCase):
 	"""
 
 	pass
+
+class TestExpense(FrappeTestCase):
+	def test_equal_split(self):
+		# TODO create test users 
+		# To run this test
+		# bench --site dreamlink.localhost run-tests --module machanpay.machan_pay.doctype.expense.test_expense --test test_equal_split
+
+		test_expense = frappe.get_doc({
+			"doctype": "Expense",
+			"date": "2024-01-01",
+			"paid_by": "emily.demo@example.com",
+			"currency": "USD",
+			"description": "Test Expense",
+			"amount": 100,
+			"split_method": "Equally",
+			"splits": [
+				{"user": "john.demo@example.com", "currency": "USD"},
+				{"user": "friend1@test.com", "currency": "USD"},
+			]
+		}).insert()
+
+		self.assertEqual(len(test_expense.splits), 2)
+		self.assertEqual(test_expense.splits[0].amount, 50)
+		self.assertEqual(test_expense.splits[1].amount, 50)
+
+
+

@@ -5,6 +5,8 @@ app_description = "Sri lankan aulternative for split wise"
 app_email = "lakmal@calcey.com"
 app_license = "mit"
 
+export_python_type_annotations = True
+
 # Apps
 # ------------------
 
