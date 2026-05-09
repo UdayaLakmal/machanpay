@@ -1,6 +1,6 @@
 ### Machan Pay
 
-Sri lankan aulternative for split wise
+A alternative to Splitwise — making it easy to split bills, track shared expenses, and settle up with friends, roommates, and travel groups. 🇱🇰💸
 
 ### Installation
 
