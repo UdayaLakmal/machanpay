@@ -5,36 +5,45 @@ import { session } from "./data/session"
 const routes = [
 	{
 		path: "/",
-		name: "Home",
-		component: () => import("@/pages/Home.vue"),
-	},
-	{
-		name: "Login",
-		path: "/account/login",
-		component: () => import("@/pages/Login.vue"),
+		name: "Dashboard",
+		component: () => import("@/pages/Dashboard.vue"),
 	},
 ]
 
+const routerBase = import.meta.env.DEV ? "/" : "/frontend"
+
 const router = createRouter({
-	history: createWebHistory("/frontend"),
+	history: createWebHistory(routerBase),
 	routes,
 })
 
 router.beforeEach(async (to, from, next) => {
+	const isLocalViteDev =
+		import.meta.env.DEV && ["localhost", "127.0.0.1"].includes(window.location.hostname)
+
+	if (isLocalViteDev) {
+		next()
+		return
+	}
+
 	let isLoggedIn = session.isLoggedIn
 	try {
 		await userResource.promise
 	} catch (error) {
 		isLoggedIn = false
 	}
-
-	if (to.name === "Login" && isLoggedIn) {
-		next({ name: "Home" })
-	} else if (to.name !== "Login" && !isLoggedIn) {
-		next({ name: "Login" })
-	} else {
-		next()
+	if (!isLoggedIn) {
+		window.location.href = "/login?redirect_to=/frontend"
+		return
 	}
+	next()
+	// if (to.name === "Login" && isLoggedIn) {
+	// 	next({ name: "Home" })
+	// } else if (to.name !== "Login" && !isLoggedIn) {
+	// 	window.location.href = "/login"
+	// } else {
+	// 	next()
+	// }
 })
 
 export default router
