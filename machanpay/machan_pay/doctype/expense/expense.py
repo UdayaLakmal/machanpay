@@ -2,6 +2,7 @@
 # For license information, please see license.txt
 
 # import frappe
+import frappe
 from frappe.model.document import Document
 
 
@@ -37,7 +38,10 @@ class Expense(Document):
 			self.calculate_equal_splits()
 		else:
 			# For manual split, ensure that the total of splits equals the amount
-			pass
+			total_split_amount = sum(split.amount for split in self.splits)
+			if total_split_amount != self.amount:
+				frappe.throw("Total of splits must equal the total amount for manual split method.")
+				
 
 	def calculate_equal_splits(self):
 		num_splits = len(self.splits)
