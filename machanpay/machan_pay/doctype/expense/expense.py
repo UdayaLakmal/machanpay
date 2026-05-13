@@ -41,11 +41,9 @@ class Expense(Document):
 			total_split_amount = sum(split.amount for split in self.splits)
 			if total_split_amount != self.amount:
 				frappe.throw("Total of splits must equal the total amount for manual split method.")
-				
 
 	def calculate_equal_splits(self):
 		num_splits = len(self.splits)
 		split = self.amount / num_splits if num_splits > 0 else 0
 		for split_entry in self.splits:
 			split_entry.amount = split
-	

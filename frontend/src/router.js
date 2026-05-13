@@ -8,6 +8,11 @@ const routes = [
 		name: "Dashboard",
 		component: () => import("@/pages/Dashboard.vue"),
 	},
+	{
+		path: "/expense/new",
+		name: "NewExpense",
+		component: () => import("@/pages/NewExpense.vue"),
+	},
 ]
 
 const routerBase = import.meta.env.DEV ? "/" : "/frontend"
